@@ -18,7 +18,24 @@ const JWT_SECRET = process.env.JWT_SECRET;
 // }
 export function verifyJWT(req) {
     try {
-        const token = req.cookies.get("token")?.value;
+        let token = req.cookies.get("token")?.value;
+
+        if (!token) {
+            const cookieHeader = req.headers.get("cookie");
+
+            if (cookieHeader) {
+                const cookies = cookieHeader.split(";");
+
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+
+                    if (cookie.startsWith("token=")) {
+                        token = cookie.substring(6);
+                        break;
+                    }
+                }
+            }
+        }
 
         console.log("==> Token exists:", !!token);
 
