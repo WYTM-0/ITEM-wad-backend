@@ -13,7 +13,7 @@ export async function GET() {
     );
     response.cookies.set("token", "", {
         httpOnly: true,
-        sameSite: "lax",
+        sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",
         path: "/",
         maxAge: 0,
         secure: process.env.NODE_ENV === "production",
