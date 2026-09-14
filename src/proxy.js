@@ -76,6 +76,7 @@ export function proxy(request) {
         request: {
             headers: requestHeaders,
         },
+        headers: corsHeaders,
     });
 }
 
