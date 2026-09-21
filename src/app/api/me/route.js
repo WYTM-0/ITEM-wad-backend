@@ -3,6 +3,13 @@ import corsHeaders from "@/lib/cors";
 import { errorResponse } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
+export async function OPTIONS(req) {
+    return new Response(null, {
+        status: 200,
+        headers: corsHeaders,
+    });
+}
+
 export function GET(request) {
     const user = verifyJWT(request);
     if (!user) {

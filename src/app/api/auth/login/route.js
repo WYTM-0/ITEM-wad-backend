@@ -5,6 +5,13 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 
+export async function OPTIONS(req) {
+    return new Response(null, {
+        status: 200,
+        headers: corsHeaders,
+    });
+}
+
 const JWT_SECRET = process.env.JWT_SECRET;
 const adminUser = process.env.ADMIN_USER;
 const adminPass = process.env.ADMIN_PASS;
@@ -25,6 +32,11 @@ export async function POST(req) {
         const response = NextResponse.json(
             {
                 message: "Login successful",
+                user: {
+                    id: user._id,
+                    email: user.email,
+                    username: user.username,
+                },
             },
             {
                 status: 200,
